@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { documentsAPI, flashcardsAPI } from '@/lib/api';
+import ChatbotIcon from '@/components/ChatbotIcon';
+import ThemeToggle from '@/components/ThemeToggle';
+import SettingsDropdown from '@/components/SettingsDropdown';
+import FlashcardDebugger from '@/components/FlashcardDebugger';
 
 interface Document {
   id: string;
@@ -136,6 +140,7 @@ export default function DashboardPage() {
               >
                 🏆 Leaderboard
               </button>
+              <SettingsDropdown />
               <button
                 onClick={logout}
                 className="bg-secondary border border-gray-600 text-white hover:bg-gray-700 px-4 py-2 rounded-xl text-sm font-semibold font-sans transition-all"
@@ -277,8 +282,18 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
+
+          {/* Debug Section - Only show in development */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="mt-6">
+              <FlashcardDebugger />
+            </div>
+          )}
         </div>
       </main>
+
+      {/* Chatbot Icon */}
+      <ChatbotIcon />
     </div>
   );
 }

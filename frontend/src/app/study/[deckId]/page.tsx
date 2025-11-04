@@ -229,7 +229,7 @@ export default function StudyPage() {
       </div>
 
       {/* Flashcard */}
-      <main className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <main className="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="bg-secondary rounded-xl shadow-lg overflow-hidden border border-gray-700">
           {/* Card Header */}
           <div className="bg-accent-gradient px-6 py-4">
@@ -248,10 +248,10 @@ export default function StudyPage() {
           
           {/* Card Content */}
           <div className="p-8 min-h-[400px] flex flex-col">
-            <div className="flex-1 flex items-center justify-center">
-              <div className="w-full max-w-3xl">
-                <div className="text-center">
-                  <div className="bg-dominant rounded-xl p-6 mb-8 border-l-4 border-accent-start relative">
+            <div className="flex-1 flex items-start justify-center py-4">
+              <div className="w-full max-w-4xl">
+                <div className="text-left">
+                  <div className="bg-dominant rounded-xl p-8 mb-8 border-l-4 border-accent-start relative min-h-[200px]">
                     {/* Speaker Button */}
                     <button
                       onClick={() => {
@@ -274,8 +274,13 @@ export default function StudyPage() {
                     </button>
 
                     {/* Card Text */}
-                    <div className="text-lg md:text-xl text-white leading-relaxed whitespace-pre-wrap break-words font-mono">
+                    <div className="text-base md:text-lg text-white leading-relaxed whitespace-pre-wrap break-words font-mono max-w-none overflow-visible text-left pr-16">
                       {showAnswer ? currentCard.answer : currentCard.question}
+                    </div>
+                    
+                    {/* Debug Info - Character Count */}
+                    <div className="absolute bottom-2 left-4 text-xs text-white/50 font-mono">
+                      {showAnswer ? 'Answer' : 'Question'}: {(showAnswer ? currentCard.answer : currentCard.question).length} chars
                     </div>
                   </div>
                 </div>

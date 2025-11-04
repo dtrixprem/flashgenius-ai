@@ -5,11 +5,39 @@
 @tailwind utilities;
 
 :root {
+  /* Dark theme (default) */
   --color-dominant: #0A0A0A;
   --color-secondary: #1C1C1E;
   --color-accent-start: #A0D2EB;
   --color-accent-end: #E8B4E1;
-  --background: var(--color-dominant)
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.75);
+  --color-border: #374151;
+  --background: var(--color-dominant);
+}
+
+.light {
+  /* Light theme */
+  --color-dominant: #ffffff;
+  --color-secondary: #f8fafc;
+  --color-accent-start: #3b82f6;
+  --color-accent-end: #8b5cf6;
+  --color-text-primary: #1f2937;
+  --color-text-secondary: rgba(31, 41, 55, 0.75);
+  --color-border: #e5e7eb;
+  --background: var(--color-dominant);
+}
+
+.dark {
+  /* Dark theme (explicit) */
+  --color-dominant: #0A0A0A;
+  --color-secondary: #1C1C1E;
+  --color-accent-start: #A0D2EB;
+  --color-accent-end: #E8B4E1;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.75);
+  --color-border: #374151;
+  --background: var(--color-dominant);
 }
 
 * {
@@ -26,8 +54,9 @@ body {
 }
 
 body {
-  color: #ffffff;
+  color: var(--color-text-primary);
   background: var(--color-dominant);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .font-mono {
@@ -65,6 +94,69 @@ body {
   color: var(--color-dominant);
 }
 
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
 .border-accent {
   border-color: var(--color-accent-start);
 }
+
+.border-primary {
+  border-color: var(--color-border);
+}
+
+/* Light mode specific styles */
+.light .bg-dominant {
+  background-color: #ffffff;
+}
+
+.light .bg-secondary {
+  background-color: #f8fafc;
+  border-color: #e5e7eb;
+}
+
+.light .text-white {
+  color: #1f2937;
+}
+
+.light .text-white\/75 {
+  color: rgba(31, 41, 55, 0.75);
+}
+
+.light .text-white\/50 {
+  color: rgba(31, 41, 55, 0.5);
+}
+
+.light .border-gray-600 {
+  border-color: #d1d5db;
+}
+
+.light .border-gray-700 {
+  border-color: #e5e7eb;
+}
+
+.light .hover\:bg-gray-700:hover {
+  background-color: #f3f4f6;
+}
+
+.light .bg-accent-gradient {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+.light .text-accent-gradient {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.light .text-accent-start {
+  color: #3b82f6;
+}
+
+

@@ -51,7 +51,7 @@ app.use(requestLogger);
 // CORS configuration
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? [process.env.FRONTEND_URL, process.env.CORS_ORIGIN].filter(Boolean)
+    ? [process.env.FRONTEND_URL, process.env.CORS_ORIGIN].filter(Boolean) as string[]
     : ['http://localhost:3000', 'http://127.0.0.1:3000'],
   credentials: true,
   optionsSuccessStatus: 200,
@@ -95,6 +95,7 @@ import flashcardRoutes from '@/routes/flashcards';
 import leaderboardRoutes from '@/routes/leaderboard';
 import testRoutes from '@/routes/test';
 import healthRoutes from '@/routes/health';
+import chatRoutes from '@/routes/chat';
 
 
 // API routes
@@ -107,6 +108,7 @@ app.use('/api/documents', documentRoutes);
 app.use('/api/flashcards', flashcardRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/test', testRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.use('/health', healthRoutes);
 app.use('/api/health', healthRoutes);

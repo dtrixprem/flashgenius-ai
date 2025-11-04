@@ -156,8 +156,8 @@ export default function AdminPage() {
                 <span className="font-mono">{healthData.services.memory.external.toFixed(1)} MB</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-blue-600 h-2 rounded-full" 
+                <div
+                  className="bg-blue-600 h-2 rounded-full"
                   style={{ width: `${(healthData.services.memory.used / healthData.services.memory.total) * 100}%` }}
                 ></div>
               </div>

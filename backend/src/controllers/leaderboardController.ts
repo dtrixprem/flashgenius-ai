@@ -13,9 +13,9 @@ export const getLeaderboard = async (req: AuthRequest, res: Response) => {
 
     // Get current user's rank
     const currentUserId = req.user?._id;
-    let currentUserRank = null;
+    let currentUserRank: number | null = null;
     
-    if (currentUserId) {
+    if (currentUserId && req.user) {
       const usersAbove = await User.countDocuments({
         totalPoints: { $gt: req.user.totalPoints }
       });
@@ -31,7 +31,7 @@ export const getLeaderboard = async (req: AuthRequest, res: Response) => {
           points: user.totalPoints,
           currentStreak: user.currentStreak,
           longestStreak: user.longestStreak,
-          isCurrentUser: currentUserId ? user._id.toString() === currentUserId.toString() : false
+          isCurrentUser: currentUserId ? (user._id as any).toString() === currentUserId.toString() : false
         })),
         currentUserRank,
         totalUsers: await User.countDocuments({})
@@ -123,6 +123,16 @@ export const getWeeklyLeaderboard = async (req: AuthRequest, res: Response) => {
 
 export const getUserStats = async (req: AuthRequest, res: Response) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
 
     // Get user's study statistics

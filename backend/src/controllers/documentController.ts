@@ -36,6 +36,17 @@ export const uploadDocument = async (req: AuthRequest, res: Response) => {
     }
 
     const { originalname, mimetype, size, buffer } = req.file;
+    
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
 
     // Extract text content
@@ -101,6 +112,17 @@ export const generateFlashcardsFromDocument = async (req: AuthRequest, res: Resp
   try {
     const { documentId } = req.params;
     const { cardCount = 10 } = req.body; // Default to 10 cards
+    
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
 
     console.log(`Generating flashcards for document ${documentId} by user ${userId}`);
@@ -200,7 +222,7 @@ export const generateFlashcardsFromDocument = async (req: AuthRequest, res: Resp
       error: {
         code: errorCode,
         message: errorMessage,
-        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
       }
     });
   }
@@ -208,6 +230,16 @@ export const generateFlashcardsFromDocument = async (req: AuthRequest, res: Resp
 
 export const getDocuments = async (req: AuthRequest, res: Response) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
     
     const documents = await DocumentModel.find({ userId })

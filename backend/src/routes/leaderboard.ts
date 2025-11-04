@@ -18,6 +18,16 @@ router.post('/test-data', async (req, res) => {
     const { StudySession } = require('@/models/StudySession');
     
     // Add some points to the current user for testing
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
     const user = await User.findById(userId);
     

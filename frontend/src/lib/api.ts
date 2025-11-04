@@ -22,7 +22,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // Don't redirect to login for chat API errors
+    if (error.response?.status === 401 && !error.config?.url?.includes('/chat/')) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/login';
@@ -70,4 +71,11 @@ export const leaderboardAPI = {
   getLeaderboard: () => api.get('/leaderboard'),
   getWeeklyLeaderboard: () => api.get('/leaderboard/weekly'),
   getUserStats: () => api.get('/leaderboard/stats'),
+};
+
+// Chat API
+export const chatAPI = {
+  sendMessage: (message: string, conversationHistory?: Array<{ role: 'user' | 'assistant'; content: string; timestamp: Date }>) =>
+    api.post('/chat/message', { message, conversationHistory }),
+  checkHealth: () => api.get('/chat/health'),
 };

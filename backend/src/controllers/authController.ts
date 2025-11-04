@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import jwt, { Secret, SignOptions } from 'jsonwebtoken';
 import { User } from '@/models/User';
 import { AuthRequest } from '@/middleware/auth';
 
@@ -39,8 +39,8 @@ export const register = async (req: Request, res: Response) => {
     
     const token = jwt.sign(
       { userId: user._id },
-      jwtSecret,
-      { expiresIn: jwtExpires }
+      jwtSecret as Secret,
+      { expiresIn: jwtExpires } as SignOptions
     );
 
     res.status(201).json({
@@ -103,8 +103,8 @@ export const login = async (req: Request, res: Response) => {
     
     const token = jwt.sign(
       { userId: user._id },
-      jwtSecret,
-      { expiresIn: jwtExpires }
+      jwtSecret as Secret,
+      { expiresIn: jwtExpires } as SignOptions
     );
 
     res.json({
@@ -136,6 +136,16 @@ export const login = async (req: Request, res: Response) => {
 export const getProfile = async (req: AuthRequest, res: Response) => {
   try {
     const user = req.user;
+    
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
     
     res.json({
       success: true,

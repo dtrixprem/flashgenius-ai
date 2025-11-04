@@ -45,9 +45,9 @@ export default function RegisterPage() {
       <div className="max-w-md w-full space-y-8 bg-secondary border border-gray-700 p-8 rounded-xl shadow-lg">
         <div>
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-accent-gradient rounded-lg flex items-center justify-center">
-              <span className="text-dominant font-bold text-xl font-mono">FG</span>
-            </div>
+            <div className="flex justify-start">
+          <img src="/logo.PNG" alt="FG" className="h-20 w-20" />
+        </div>
           </div>
           <h2 className="mt-6 text-center text-3xl text-white font-extrabold font-sans">
             Create your FlashGenius AI account

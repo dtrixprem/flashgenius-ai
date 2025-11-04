@@ -7,6 +7,16 @@ import { AuthRequest } from '@/middleware/auth';
 
 export const getDecks = async (req: AuthRequest, res: Response) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
     
     const decks = await FlashcardDeck.find({ userId })
@@ -41,6 +51,17 @@ export const getDecks = async (req: AuthRequest, res: Response) => {
 export const getDeckCards = async (req: AuthRequest, res: Response) => {
   try {
     const { deckId } = req.params;
+    
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
 
     // Verify deck ownership
@@ -92,6 +113,17 @@ export const getDeckCards = async (req: AuthRequest, res: Response) => {
 export const startStudySession = async (req: AuthRequest, res: Response) => {
   try {
     const { deckId } = req.params;
+    
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
 
     // Verify deck ownership
@@ -155,6 +187,17 @@ export const completeStudySession = async (req: AuthRequest, res: Response) => {
   try {
     const { sessionId } = req.params;
     const { cardsReviewed, correctAnswers, cardResults } = req.body;
+    
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
 
     // Find and update session
@@ -229,6 +272,17 @@ export const updateFlashcard = async (req: AuthRequest, res: Response) => {
   try {
     const { cardId } = req.params;
     const { question, answer } = req.body;
+    
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'User not authenticated'
+        }
+      });
+    }
+    
     const userId = req.user._id;
 
     // Find the card and verify ownership through deck
