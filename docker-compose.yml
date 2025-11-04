@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7
+    container_name: flashgenius-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: flashgenius_ai
+
+  # Redis for caching (optional for future use)
+  redis:
+    image: redis:7-alpine
+    container_name: flashgenius-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - flashgenius-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  flashgenius-network:
+    driver: bridge

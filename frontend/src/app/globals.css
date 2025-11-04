@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-dominant: #0A0A0A;
+  --color-secondary: #1C1C1E;
+  --color-accent-start: #A0D2EB;
+  --color-accent-end: #E8B4E1;
+  --background: var(--color-dominant)
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  color: #ffffff;
+  background: var(--color-dominant);
+}
+
+.font-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.bg-dominant {
+  background-color: var(--color-dominant);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-accent-gradient {
+  background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+}
+
+.text-accent-gradient {
+  background: linear-gradient(135deg, var(--color-accent-start), var(--color-accent-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-accent-start {
+  color: var(--color-accent-start);
+}
+
+.text-accent-end {
+  color: var(--color-accent-end);
+}
+
+.text-dominant {
+  color: var(--color-dominant);
+}
+
+.border-accent {
+  border-color: var(--color-accent-start);
+}

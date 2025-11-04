@@ -1,0 +1,30 @@
+services:
+  # Backend API
+  - type: web
+    name: flashgenius-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://dtrixprem:TQoLeIZCh9Tg42b7@cluster0.bwdnhhw.mongodb.net/flashgenius_ai_prod
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GEMINI_API_KEY
+        value: AIzaSyDl1V6wmFC6HTxgTeiyuL_DxQgFSrY2OxI
+      - key: FRONTEND_URL
+        value: https://flashgenius-frontend.onrender.com
+
+  # Frontend
+  - type: web
+    name: flashgenius-frontend
+    env: node
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: https://flashgenius-backend.onrender.com
